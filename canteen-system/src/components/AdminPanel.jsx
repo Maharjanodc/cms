@@ -33,16 +33,14 @@ function AdminPanel() {
     window.location.href = "/";
   };
 
-  // Mark order as completed
-  const markCompleted = (index) => {
+  const markCompleted = index => {
     const newOrders = [...orders];
     newOrders[index].completed = true;
     setOrders(newOrders);
     localStorage.setItem("orders", JSON.stringify(newOrders));
   };
 
-  // Delete order
-  const deleteOrder = (index) => {
+  const deleteOrder = index => {
     const newOrders = orders.filter((_, i) => i !== index);
     setOrders(newOrders);
     localStorage.setItem("orders", JSON.stringify(newOrders));
@@ -68,34 +66,31 @@ function AdminPanel() {
 
       <h3>Customer Orders</h3>
       {orders.length === 0 && <p>No orders yet.</p>}
-      {orders
-        .slice()              // copy array
-        .reverse()            // most recent first
-        .map((order, i) => (
-          <div
-            key={i}
-            className="menu-item"
-            style={{ backgroundColor: order.completed ? "#d4edda" : "#f8f8f8" }}
-          >
-            <div>
-              <strong>User:</strong> {order.user} <br />
-              <strong>Items:</strong> {order.items.map(it => it.name).join(", ")} <br />
-              <strong>Total:</strong> Rs {order.items.reduce((sum, it) => sum + it.price, 0)}
-            </div>
-            <div style={{ display: "flex", gap: "5px" }}>
-              {!order.completed && (
-                <button className="secondary" onClick={() => markCompleted(orders.length - 1 - i)}>
-                  Mark Completed
-                </button>
-              )}
-              {order.completed && (
-                <button className="secondary" onClick={() => deleteOrder(orders.length - 1 - i)}>
-                  Delete
-                </button>
-              )}
-            </div>
+      {orders.slice().reverse().map((order, i) => (
+        <div
+          key={i}
+          className="menu-item"
+          style={{ backgroundColor: order.completed ? "#181717" : "#181717" }}
+        >
+          <div>
+            <strong>User:</strong> {order.user} <br />
+            <strong>Items:</strong> {order.items.map(it => it.name).join(", ")} <br />
+            <strong>Total:</strong> Rs {order.items.reduce((sum, it) => sum + it.price, 0)}
           </div>
-        ))}
+          <div style={{ display: "flex", gap: "5px" }}>
+            {!order.completed && (
+              <button className="secondary" onClick={() => markCompleted(orders.length - 1 - i)}>
+                Mark Completed
+              </button>
+            )}
+            {order.completed && (
+              <button className="secondary" onClick={() => deleteOrder(orders.length - 1 - i)}>
+                Delete
+              </button>
+            )}
+          </div>
+        </div>
+      ))}
     </div>
   );
 }

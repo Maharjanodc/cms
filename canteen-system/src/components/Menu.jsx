@@ -26,8 +26,11 @@ function Menu() {
     window.location.href = "/";
   };
 
+
   return (
+    
     <div className="container">
+      
       <h2>Menu</h2>
       <button className="secondary" onClick={logout}>Logout</button>
 
@@ -50,5 +53,13 @@ function Menu() {
     </div>
   );
 }
+
+<div class="video-container">
+        <video loop autoplay muted id="background-video">
+            <source src="background.mp4" type="video/mp4"> </source>
+        </video>
+    </div>
+
+
 
 export default Menu;
